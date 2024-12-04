@@ -26,7 +26,7 @@ const dateReducerForStatisticResources = (statisticResources: StatisticResource[
   total: statisticResource.total,
 }));
 
-function AdminDashboard() {
+function PurchaseReport() {
   const theme = useMantineTheme();
 
   const { statisticResponse } = useGetStatisticApi();
@@ -43,16 +43,16 @@ function AdminDashboard() {
           {/* Báo cáo doanh thu  */}
           <Grid>
             <Grid.Col span={6}>
-              <OverviewCard title="Tổng doanh thu" value={5200000} color="green" icon={Cash}/>
+              <RevenueCard title="Tổng doanh thu" number={5200000} color="green" icon={Cash}/>
             </Grid.Col>
             <Grid.Col span={6}>
-              <OverviewCard title="Tổng lợi nhuận" value={1350000} color="lime" icon={Cash}/>
+              <RevenueCard title="Tổng lợi nhuận" number={1350000} color="lime" icon={Cash}/>
             </Grid.Col>
             <Grid.Col span={6}>
-              <OverviewCard title="Phần trăm lợi nhuận" value={25.9} color="blue" icon={Percentage}/>
+              <RevenueCard title="Phần trăm lợi nhuận" number={25.9} color="blue" icon={Percentage}/>
             </Grid.Col>
             <Grid.Col span={6}>
-              <OverviewCard title="Sản phẩm bán chạy nhất" value={statistic.totalCustomer} color="yellow" icon={Medal}/>
+              <RevenueCard title="Sản phẩm bán chạy nhất" number={statistic.totalCustomer} color="yellow" icon={Medal}/>
             </Grid.Col>
           </Grid>
         </Stack>
@@ -63,24 +63,24 @@ function AdminDashboard() {
 
           <Grid>
             <Grid.Col span={3}>
-              <OverviewCard title="Tổng số khách hàng" value={statistic.totalCustomer} color="blue" icon={Users}/>
+              <OverviewCard title="Tổng số khách hàng" number={statistic.totalCustomer} color="blue" icon={Users}/>
             </Grid.Col>
             <Grid.Col span={3}>
-              <OverviewCard title="Tổng số sản phẩm" value={statistic.totalProduct} color="orange" icon={Box}/>
+              <OverviewCard title="Tổng số sản phẩm" number={statistic.totalProduct} color="orange" icon={Box}/>
             </Grid.Col>
             <Grid.Col span={3}>
-              <OverviewCard title="Tổng số đơn hàng" value={statistic.totalOrder} color="teal" icon={FileBarcode}/>
+              <OverviewCard title="Tổng số đơn hàng" number={statistic.totalOrder} color="teal" icon={FileBarcode}/>
             </Grid.Col>
             <Grid.Col span={3}>
-              <OverviewCard title="Tổng số vận đơn" value={statistic.totalWaybill} color="grape" icon={Truck}/>
+              <OverviewCard title="Tổng số vận đơn" number={statistic.totalWaybill} color="grape" icon={Truck}/>
             </Grid.Col>
             <Grid.Col span={3}>
-              <OverviewCard title="Tổng số đánh giá" value={statistic.totalReview} color="yellow" icon={Star}/>
+              <OverviewCard title="Tổng số đánh giá" number={statistic.totalReview} color="yellow" icon={Star}/>
             </Grid.Col>
             <Grid.Col span={3}>
               <OverviewCard
                 title="Tổng số khuyến mãi"
-                value={statistic.totalActivePromotion}
+                number={statistic.totalActivePromotion}
                 color="pink"
                 icon={Percentage}
               />
@@ -88,13 +88,13 @@ function AdminDashboard() {
             <Grid.Col span={3}>
               <OverviewCard
                 title="Tổng số nhà cung cấp"
-                value={statistic.totalSupplier}
+                number={statistic.totalSupplier}
                 color="violet"
                 icon={BuildingWarehouse}
               />
             </Grid.Col>
             <Grid.Col span={3}>
-              <OverviewCard title="Tổng số thương hiệu" value={statistic.totalBrand} color="indigo" icon={BrandApple}/>
+              <OverviewCard title="Tổng số thương hiệu" number={statistic.totalBrand} color="indigo" icon={BrandApple}/>
             </Grid.Col>
           </Grid>
           
@@ -217,12 +217,12 @@ function AdminDashboard() {
 
 interface OverviewCardProps {
   title: string;
-  value: number | string;
+  number: number;
   color: MantineColor;
   icon: Icon;
 }
 
-function OverviewCard({ title, value, color, icon, }: OverviewCardProps) {
+function OverviewCard({ title, number, color, icon, }: OverviewCardProps) {
   const theme = useMantineTheme();
 
   const Icon = icon;
@@ -236,7 +236,27 @@ function OverviewCard({ title, value, color, icon, }: OverviewCardProps) {
         <Icon size={40} strokeWidth={1.25}/>
         <Stack spacing={2.5}>
           <Text>{title}</Text>
-          <Text size="xl" weight={500}>{value}</Text>
+          <Text size="xl" weight={500}>{number}</Text>
+        </Stack>
+      </Group>
+    </Card>
+  );
+}
+function RevenueCard({ title, number, color, icon, }: OverviewCardProps) {
+  const theme = useMantineTheme();
+
+  const Icon = icon;
+
+  return (
+    <Card sx={{
+      backgroundColor: theme.colors[color][theme.colorScheme === 'dark' ? 9 : 1],
+      color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+    }}>
+      <Group>
+        <Icon size={40} strokeWidth={1.25}/>
+        <Stack spacing={2.5}>
+          <Text>{title}</Text>
+          <Text size="xl" weight={1000}>{number}</Text>
         </Stack>
       </Group>
     </Card>
@@ -275,4 +295,4 @@ function useGetStatisticApi() {
   return { statisticResponse, isLoadingStatisticResponse, isErrorStatisticResponse };
 }
 
-export default AdminDashboard;
+export default PurchaseReport;

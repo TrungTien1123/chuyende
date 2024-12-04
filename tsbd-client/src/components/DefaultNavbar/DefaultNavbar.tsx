@@ -13,7 +13,8 @@ import {
   Home,
   Icon,
   Message,
-  Users
+  Users,
+  ChartDots
 } from 'tabler-icons-react';
 import { Link } from 'react-router-dom';
 import useAppStore from 'stores/use-app-store';
@@ -36,8 +37,22 @@ interface NavbarChildLink {
 const navbarLinks: NavbarLink[] = [
   {
     link: '/admin',
-    label: 'Trang chủ',
-    icon: Home,
+    label: 'Báo cáo',
+    icon: ChartDots,
+    childLinks: [
+      {
+        link: '/admin/report/sale',
+        label: 'Báo cáo bán hàng',
+      },
+      {
+        link: '/admin/report/purchase',
+        label: 'Báo cáo nhập hàng',
+      },
+      {
+        link: '/admin/report/inventory',
+        label: 'Báo cáo kho',
+      },
+    ],
   },
   // {
   //   link: '/admin/address',
@@ -264,7 +279,7 @@ export function DefaultNavbar() {
   const theme = useMantineTheme();
   const { opened } = useAppStore();
   const { classes, cx } = useDefaultNavbarStyles();
-  const [active, setActive] = useState('Trang chủ');
+  const [active, setActive] = useState('Báo cáo');
 
   const { isOnlyEmployee } = useAdminAuthStore();
 

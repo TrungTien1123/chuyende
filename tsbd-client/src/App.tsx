@@ -86,6 +86,9 @@ import RewardManage from 'pages/reward-strategy';
 import ClientReward from 'pages/client-reward';
 import ClientSignup from 'pages/client-signup';
 import ClientForgotPassword, { ClientChangePassword } from 'pages/client-forgot-password';
+import SaleReport from 'pages/report/SaleReport';
+import PurchaseReport from 'pages/report/PurchaseReport';
+import InventoryReport from 'pages/report/InventoryReport';
 
 const queryClient = new QueryClient();
 
@@ -194,6 +197,10 @@ function App() {
                 <Route path="/admin" element={<Admin/>}>
                   <Route path="/admin/*" element={<AdminError/>}/>
                   <Route index element={<AdminDashboard/>}/>
+                  {/* REPORT */}
+                  <Route path={ManagerPath.REPORT_SALE} element={<SaleReport/>}/>
+                  <Route path={ManagerPath.REPORT_PURCHASE} element={<PurchaseReport/>}/>
+                  <Route path={ManagerPath.REPORT_INVENTORY} element={<InventoryReport/>}/>
                   {/* ADDRESS */}
                   <Route path={ManagerPath.ADDRESS} element={<AddressManage/>}/>
                   <Route path={ManagerPath.ADDRESS + '/create'} element={<AddressCreate/>}/>

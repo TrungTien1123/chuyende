@@ -1,4 +1,9 @@
 class ManagerPath {
+  static REPORT = '/admin/report';
+  static REPORT_SALE = '/admin/report/sale';
+  static REPORT_PURCHASE = '/admin/report/purchase';
+  static REPORT_INVENTORY = '/admin/report/inventory';
+
   static ADDRESS = '/admin/address';
   static PROVINCE = '/admin/address/province';
   static DISTRICT = '/admin/address/district';
