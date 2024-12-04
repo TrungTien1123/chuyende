@@ -39,26 +39,26 @@ const navbarLinks: NavbarLink[] = [
     label: 'Trang chủ',
     icon: Home,
   },
-  {
-    link: '/admin/address',
-    label: 'Địa chỉ',
-    icon: AddressBook,
-    childLinks: [
-      {
-        link: '/admin/address/province',
-        label: 'Tỉnh thành',
-      },
-      {
-        link: '/admin/address/district',
-        label: 'Quận huyện',
-      },
-      {
-        link: '/admin/address/ward',
-        label: 'Phường xã',
-      },
-    ],
-    disableForEmployee: true,
-  },
+  // {
+  //   link: '/admin/address',
+  //   label: 'Địa chỉ',
+  //   icon: AddressBook,
+  //   childLinks: [
+  //     {
+  //       link: '/admin/address/province',
+  //       label: 'Tỉnh thành',
+  //     },
+  //     {
+  //       link: '/admin/address/district',
+  //       label: 'Quận huyện',
+  //     },
+  //     {
+  //       link: '/admin/address/ward',
+  //       label: 'Phường xã',
+  //     },
+  //   ],
+  //   disableForEmployee: true,
+  // },
   {
     link: '/admin/user',
     label: 'Người dùng',
@@ -71,54 +71,54 @@ const navbarLinks: NavbarLink[] = [
     ],
     disableForEmployee: true,
   },
-  {
-    link: '/admin/employee',
-    label: 'Nhân viên',
-    icon: Building,
-    childLinks: [
-      {
-        link: '/admin/employee/office',
-        label: 'Văn phòng',
-      },
-      {
-        link: '/admin/employee/department',
-        label: 'Phòng ban',
-      },
-      {
-        link: '/admin/employee/job-type',
-        label: 'Loại hình công việc',
-      },
-      {
-        link: '/admin/employee/job-level',
-        label: 'Cấp bậc công việc',
-      },
-      {
-        link: '/admin/employee/job-title',
-        label: 'Chức danh công việc',
-      },
-    ],
-    disableForEmployee: true,
-  },
-  {
-    link: '/admin/customer',
-    label: 'Khách hàng',
-    icon: Users,
-    childLinks: [
-      {
-        link: '/admin/customer/group',
-        label: 'Nhóm khách hàng',
-      },
-      {
-        link: '/admin/customer/status',
-        label: 'Trạng thái khách hàng',
-      },
-      {
-        link: '/admin/customer/resource',
-        label: 'Nguồn khách hàng',
-      },
-    ],
-    disableForEmployee: true,
-  },
+  // {
+  //   link: '/admin/employee',
+  //   label: 'Nhân viên',
+  //   icon: Building,
+  //   childLinks: [
+  //     {
+  //       link: '/admin/employee/office',
+  //       label: 'Văn phòng',
+  //     },
+  //     {
+  //       link: '/admin/employee/department',
+  //       label: 'Phòng ban',
+  //     },
+  //     {
+  //       link: '/admin/employee/job-type',
+  //       label: 'Loại hình công việc',
+  //     },
+  //     {
+  //       link: '/admin/employee/job-level',
+  //       label: 'Cấp bậc công việc',
+  //     },
+  //     {
+  //       link: '/admin/employee/job-title',
+  //       label: 'Chức danh công việc',
+  //     },
+  //   ],
+  //   disableForEmployee: true,
+  // },
+  // {
+  //   link: '/admin/customer',
+  //   label: 'Khách hàng',
+  //   icon: Users,
+  //   childLinks: [
+  //     {
+  //       link: '/admin/customer/group',
+  //       label: 'Nhóm khách hàng',
+  //     },
+  //     {
+  //       link: '/admin/customer/status',
+  //       label: 'Trạng thái khách hàng',
+  //     },
+  //     {
+  //       link: '/admin/customer/resource',
+  //       label: 'Nguồn khách hàng',
+  //     },
+  //   ],
+  //   disableForEmployee: true,
+  // },
   {
     link: '/admin/product',
     label: 'Sản phẩm',
