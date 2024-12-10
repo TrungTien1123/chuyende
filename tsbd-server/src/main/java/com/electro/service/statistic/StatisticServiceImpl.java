@@ -1,11 +1,11 @@
 package com.electro.service.statistic;
 
-import com.electro.dto.statistic.StatisticResource;
-import com.electro.dto.statistic.StatisticResponse;
+import com.electro.dto.statistic.*;
 import com.electro.repository.authentication.UserProjectionRepository;
 import com.electro.repository.customer.CustomerRepository;
 import com.electro.repository.order.OrderProjectionRepository;
 import com.electro.repository.order.OrderRepository;
+import com.electro.repository.order.OrderVariantProjectionRepository;
 import com.electro.repository.product.BrandRepository;
 import com.electro.repository.product.ProductRepository;
 import com.electro.repository.product.SupplierRepository;
@@ -33,6 +33,7 @@ public class StatisticServiceImpl implements StatisticService {
     private ReviewRepository reviewRepository;
     private UserProjectionRepository userProjectionRepository;
     private OrderProjectionRepository orderProjectionRepository;
+    private OrderVariantProjectionRepository orderVariantProjectionRepository;
     private WaybillProjectionRepository waybillProjectionRepository;
     private ReviewProjectionRepository reviewProjectionRepository;
 
@@ -50,10 +51,12 @@ public class StatisticServiceImpl implements StatisticService {
         int totalSupplier = supplierRepository.countBySupplierId();
         int totalBrand = brandRepository.countByBrandId();
 
-        List<StatisticResource> statisticRegistration = userProjectionRepository.getUserCountByCreateDate();
-        List<StatisticResource> statisticOrder = orderProjectionRepository.getOrderCountByCreateDate();
-        List<StatisticResource> statisticReview = reviewProjectionRepository.getReviewCountByCreateDate();
-        List<StatisticResource> statisticWaybill = waybillProjectionRepository.getWaybillCountByCreateDate();
+        List<StatisticLongDate> statisticRegistration = userProjectionRepository.getUserCountByCreateDate();
+        List<StatisticLongDate> statisticOrder = orderProjectionRepository.getOrderCountByCreateDate();
+        List<StatisticLongDate> statisticReview = reviewProjectionRepository.getReviewCountByCreateDate();
+        List<StatisticLongDate> statisticWaybill = waybillProjectionRepository.getWaybillCountByCreateDate();
+        List<StatisticDecimalDate> statisticRevenueByDate = orderProjectionRepository.getRevenueByCreateDate();
+        List<StatisticLongString> statisticOrderByResource = orderProjectionRepository.getOrderCountByOrderResource();
 
         statisticResponse.setTotalCustomer(totalCustomer);
         statisticResponse.setTotalProduct(totalProduct);
@@ -67,6 +70,12 @@ public class StatisticServiceImpl implements StatisticService {
         statisticResponse.setStatisticOrder(statisticOrder);
         statisticResponse.setStatisticReview(statisticReview);
         statisticResponse.setStatisticWaybill(statisticWaybill);
+        statisticResponse.setStatisticRevenueByDate(statisticRevenueByDate);
+        statisticResponse.setStatisticOrderByResource(statisticOrderByResource);
+
+        //Báo cáo bán hàng
+        List<StatisticDecimalString> statisticRevenueByProduct = orderVariantProjectionRepository.getRevenueByProduct();
+        statisticResponse.setStatisticRevenueByProduct(statisticRevenueByProduct);
 
         return statisticResponse;
     }

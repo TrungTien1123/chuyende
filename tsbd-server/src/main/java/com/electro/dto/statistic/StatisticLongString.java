@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StatisticInfo {
+public class StatisticLongString {
     private String criteria;
     private Long total;
 }

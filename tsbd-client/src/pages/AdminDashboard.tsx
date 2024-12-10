@@ -13,7 +13,7 @@ import {
   Cash,
   Medal
 } from 'tabler-icons-react';
-import { Bar, BarChart, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, Line, LineChart, Pie, PieChart, Tooltip, XAxis, YAxis, Cell, Legend, LabelList, Label } from 'recharts';
 import { useQuery } from 'react-query';
 import FetchUtils, { ErrorMessage } from 'utils/FetchUtils';
 import ResourceURL from 'constants/ResourceURL';
@@ -28,14 +28,14 @@ const dateReducerForStatisticResources = (statisticResources: StatisticResource[
 
 function AdminDashboard() {
   const theme = useMantineTheme();
-
   const { statisticResponse } = useGetStatisticApi();
   const statistic = statisticResponse as StatisticResponse;
+  const colors = ['#00C49F','#0088FE', '#FFBB28', '#FF8042'];
 
   return (
     <Stack mb={30}>
       <Title order={3}>Thống kê hệ thống</Title>
-
+      {/* Card */}
       <Paper shadow="xs" p="md">
         <Stack>
           <Text size="lg" weight={500} color="dimmed">Tổng quan kinh doanh tháng</Text>
@@ -100,63 +100,8 @@ function AdminDashboard() {
           
         </Stack>
       </Paper>
-
+      {/*Chart*/}
       <Grid>
-        <Grid.Col lg={6}>
-          <Stack>
-            <Paper shadow="xs" p="md">
-              <Stack>
-                <Group position="apart">
-                  <Text size="lg" weight={500} color="dimmed">Lượt đăng ký tài khoản</Text>
-                  <Text size="sm" color="dimmed">7 ngày gần nhất</Text>
-                </Group>
-
-                <LineChart
-                  width={500}
-                  height={275}
-                  data={dateReducerForStatisticResources(statistic.statisticRegistration)}
-                  margin={{ top: 10, right: 5, bottom: 0, left: -10 }}
-                >
-                  <XAxis dataKey="date"/>
-                  <YAxis/>
-                  <Tooltip/>
-                  <Line
-                    name="Số lượt đăng ký"
-                    type="monotone"
-                    dataKey="total"
-                    stroke={theme.colors.blue[5]}
-                  />
-                </LineChart>
-              </Stack>
-            </Paper>
-
-            <Paper shadow="xs" p="md">
-              <Stack>
-                <Group position="apart">
-                  <Text size="lg" weight={500} color="dimmed">Lượt đánh giá sản phẩm</Text>
-                  <Text size="sm" color="dimmed">7 ngày gần nhất</Text>
-                </Group>
-
-                <LineChart
-                  width={500}
-                  height={275}
-                  data={dateReducerForStatisticResources(statistic.statisticReview)}
-                  margin={{ top: 10, right: 5, bottom: 0, left: -10 }}
-                >
-                  <XAxis dataKey="date"/>
-                  <YAxis/>
-                  <Tooltip/>
-                  <Line
-                    name="Số lượt đánh giá"
-                    type="monotone"
-                    dataKey="total"
-                    stroke={theme.colors.yellow[7]}
-                  />
-                </LineChart>
-              </Stack>
-            </Paper>
-          </Stack>
-        </Grid.Col>
         <Grid.Col lg={6}>
           <Stack>
             <Paper shadow="xs" p="md">
@@ -183,7 +128,60 @@ function AdminDashboard() {
                 </BarChart>
               </Stack>
             </Paper>
+            <Paper shadow="xs" p="md">
+              <Stack>
+                <Group position="apart">
+                  <Text size="lg" weight={500} color="dimmed">Đơn hàng theo nguồn</Text>
+                  <Text size="sm" color="dimmed"></Text>
+                </Group>
 
+
+                <PieChart
+                  width={500}
+                  height={275}
+                  margin={{ top: 10, right: 5, bottom: 0, left: -10 }}
+                >
+                  <Legend/>
+                  <Tooltip/>
+                  <Pie data={statistic.statisticOrderByResource} dataKey="total" nameKey="criteria" label  >
+                    {statistic.statisticOrderByResource.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                    ))}
+                  </Pie>      
+
+                </PieChart>
+              </Stack>
+            </Paper>
+            <Paper shadow="xs" p="md">
+              <Stack>
+                <Group position="apart">
+                  <Text size="lg" weight={500} color="dimmed">Lượt đăng ký tài khoản</Text>
+                  <Text size="sm" color="dimmed">7 ngày gần nhất</Text>
+                </Group>
+
+                <LineChart
+                  width={500}
+                  height={275}
+                  data={dateReducerForStatisticResources(statistic.statisticRegistration)}
+                  margin={{ top: 10, right: 5, bottom: 0, left: -10 }}
+                >
+                  <XAxis dataKey="date"/>
+                  <YAxis/>
+                  <Tooltip/>
+                  <Line
+                    name="Số lượt đăng ký"
+                    type="monotone"
+                    dataKey="total"
+                    stroke={theme.colors.blue[5]}
+                  />
+                </LineChart>
+              </Stack>
+            </Paper>
+          </Stack>
+        </Grid.Col>
+
+        <Grid.Col lg={6}>
+          <Stack>
             <Paper shadow="xs" p="md">
               <Stack>
                 <Group position="apart">
@@ -208,9 +206,90 @@ function AdminDashboard() {
                 </BarChart>
               </Stack>
             </Paper>
+            <Paper shadow="xs" p="md">
+              <Stack>
+                <Group position="apart">
+                  <Text size="lg" weight={500} color="dimmed">Lượt đánh giá sản phẩm</Text>
+                  <Text size="sm" color="dimmed">7 ngày gần nhất</Text>
+                </Group>
+
+                <LineChart
+                  width={500}
+                  height={275}
+                  data={dateReducerForStatisticResources(statistic.statisticReview)}
+                  margin={{ top: 10, right: 5, bottom: 0, left: -10 }}
+                >
+                  <XAxis dataKey="date"/>
+                  <YAxis/>
+                  <Tooltip/>
+                  <Line
+                    name="Số lượt đánh giá"
+                    type="monotone"
+                    dataKey="total"
+                    stroke={theme.colors.yellow[7]}
+                  />
+                </LineChart>
+              </Stack>
+            </Paper>
+            <Paper shadow="xs" p="md">
+              <Stack>
+                <Group position="apart">
+                  <Text size="lg" weight={500} color="dimmed">Doanh thu theo thời gian</Text>
+                  <Text size="sm" color="dimmed"></Text>
+                </Group>
+
+                <LineChart
+                  width={500}
+                  height={275}
+                  data={dateReducerForStatisticResources(statistic.statisticRevenueByDate)}
+                  margin={{ top: 10, right: 5, bottom: 0, left: 20 }}
+                >
+                  <XAxis dataKey="date"/>
+                  <YAxis/>
+                  <Tooltip/>
+                  <Line
+                    name="Doanh thu"
+                    type="monotone"
+                    dataKey="total"
+                    stroke={theme.colors.green[7]}
+                  />
+                </LineChart>
+              </Stack>
+            </Paper>
           </Stack>
+        </Grid.Col>   
+      </Grid>
+      <Grid>
+        <Grid.Col lg={12}>
+          <Paper shadow="xs" p="md">
+            <Stack>
+              <Group position="apart">
+                <Text size="lg" weight={500} color="dimmed">Doanh thu theo sản phẩm</Text>
+              </Group>
+
+              <BarChart
+                width={1100}
+                height={500}
+                data={statistic.statisticRevenueByProduct }
+                margin={{ top: 10, right: 5, bottom: 20, left: 10 }}
+                layout='vertical'
+              >
+                <XAxis type='number'/>
+                <YAxis dataKey="criteria" type='category' width={200}/>
+                <Tooltip/>
+                <Bar
+                  name="Doanh thu"
+                  dataKey="total"
+                  fill={theme.colors.teal[5]}
+                >
+                  <LabelList dataKey="total" position="right" />
+                </Bar> 
+              </BarChart>
+            </Stack>
+          </Paper>
         </Grid.Col>
       </Grid>
+      
     </Stack>
   );
 }
@@ -222,7 +301,7 @@ interface OverviewCardProps {
   icon: Icon;
 }
 
-function OverviewCard({ title, value, color, icon, }: OverviewCardProps) {
+function OverviewCard({ title, value, color, icon }: OverviewCardProps) {
   const theme = useMantineTheme();
 
   const Icon = icon;
@@ -255,6 +334,26 @@ const defaultStatisticResponse: StatisticResponse = {
   statisticOrder: [],
   statisticReview: [],
   statisticWaybill: [],
+  statisticOrderByResource: [],
+  statisticRevenueByDate:[],
+
+  statisticRevenueByProduct: [],
+  statisticProfitByDate: [],
+  statisticProfitByProduct: [],
+
+  //Báo cáo nhập hàng 
+  totalPurchaseQuantity: 0,
+  totalPurchaseValue: 0,
+  statisticPurchaseBySupplier: [],
+  statisticPurchaseByVariant: [],
+  statisticPurchaseValueByDate: [],
+  statisticPurchaseQuantityByDate: [],
+
+  //Báo cáo tồn kho
+  totalInventoryQuantity: 0,
+  totalInventoryValue: 0,
+  movingAverageCost: 0,
+  inventoryProportion: 0,
 };
 
 function useGetStatisticApi() {

@@ -9,7 +9,7 @@ import java.time.Instant;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StatisticResource {
+public class StatisticLongDate {
     private Instant date;
     private Long total;
 }

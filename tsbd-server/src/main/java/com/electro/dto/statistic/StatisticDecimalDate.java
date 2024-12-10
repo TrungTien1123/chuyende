@@ -9,7 +9,7 @@ import java.time.Instant;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StatisticValueDate {
+public class StatisticDecimalDate {
     private Instant date;
     private BigDecimal total;
 }
